@@ -1,0 +1,18 @@
+<mat-toolbar color="primary">
+  <span>Sign-Language</span>
+  <span class="space"></span>
+  <div fxLayout
+       fxLayoutGap="10px"
+       fxLayoutAlign="space-around space-around">
+    <a mat-button
+       routerLink="/sign-prediction"
+       routerLinkActive="active">Sign-Prediction</a>
+    <a mat-button
+       routerLink="/signs"
+       routerLinkActive="active">Signs</a>
+  </div>
+
+</mat-toolbar>
+<div class="container">
+  <router-outlet></router-outlet>
+</div>
