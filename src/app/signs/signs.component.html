@@ -1,16 +1,18 @@
-<div fxLayout="row wrap"
-     fxLayout.xs="column"
-     fxLayoutGap="20px grid"
-     fxLayoutAlign="space-around center">
-  <div *ngFor="let sign of signs">
-    <mat-card>
-      <mat-card-header>
-        <mat-card-title>{{sign.sign}}</mat-card-title>
-      </mat-card-header>
-      <img mat-card-image
-           [src]="sign.url"
-           [alt]="sign.sign"
-           loading="auto">
-    </mat-card>
+<div class="container">
+  <div fxLayout="row wrap"
+       fxLayout.xs="column"
+       fxLayoutGap="20px grid"
+       fxLayoutAlign="space-around center">
+    <div *ngFor="let sign of signs">
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>{{sign.sign}}</mat-card-title>
+        </mat-card-header>
+        <img mat-card-image
+             [src]="sign.url"
+             [alt]="sign.sign"
+             loading="auto">
+      </mat-card>
+    </div>
   </div>
 </div>
