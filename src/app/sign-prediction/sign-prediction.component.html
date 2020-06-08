@@ -1,11 +1,41 @@
-<div fxLaxout
+<div fxLayout="column"
      fxLayoutAlign="center center">
-  <mat-card>
-    <video id="video"
-           playsinline></video>
+
+  <mat-spinner *ngIf="isLoading"></mat-spinner>
+
+  <ng-container *ngIf="!isPredictionActive">
+    <img src="assets/camera.png" />
+    <button mat-raised-button
+            color="primary"
+            class="block"
+            [disabled]="isLoading"
+            (click)="startWebcam()">Start Prediction</button>
+  </ng-container>
+
+  <mat-card [style.visibility]="isPredictionActive ? 'visible' : 'hidden'">
+    <mat-card-title>
+      Webcam
+    </mat-card-title>
+    <mat-card-content>
+      <div id="canvas-wrapper">
+        <video #video
+               playsinline></video>
+        <canvas #overlay></canvas>
+      </div>
+    </mat-card-content>
     <mat-card-actions>
       <button mat-button
-              (click)="startWebcam()">Start Prediction</button>
+              (click)="stopWebcam()">Stop Prediction</button>
     </mat-card-actions>
   </mat-card>
+
+  <ng-container *ngIf="isPredictionActive && (boundingBox$ | async) as boundingBox">
+    <h1>
+      top left x:{{boundingBox?.topLeftX}}, top left y: {{boundingBox?.topLeftY}}
+    </h1>
+    <h1>
+      bottom right x:{{boundingBox?.bottomRightX}}, bottom right y: {{boundingBox?.bottomRightY}}
+    </h1>
+  </ng-container>
+
 </div>

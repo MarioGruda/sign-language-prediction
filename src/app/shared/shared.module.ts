@@ -5,11 +5,13 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 const materialModules = [
   MatButtonModule,
   MatCardModule,
-  MatIconModule
+  MatIconModule,
+  MatProgressSpinnerModule
 ];
 
 @NgModule({
