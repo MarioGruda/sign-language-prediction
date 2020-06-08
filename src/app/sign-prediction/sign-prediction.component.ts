@@ -1,4 +1,4 @@
-import { Component, ViewChild, ElementRef, NgZone } from '@angular/core';
+import { Component, ViewChild, ElementRef, NgZone, HostListener } from '@angular/core';
 import { HandPose } from '@tensorflow-models/handpose';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { map, distinctUntilChanged, tap } from 'rxjs/operators';
@@ -62,6 +62,18 @@ export class SignPredictionComponent {
     stream.getTracks().forEach(track => track.stop());
     this.video.nativeElement.load();
     this.resetCanvas();
+  }
+
+  @HostListener('document:keydown.space', ['$event'])
+  async togglePrediction(event) {
+    event.preventDefault();
+    if (!this.isLoading) {
+      if (this.isPredictionActive) {
+        this.stopWebcam();
+      } else {
+        await this.startWebcam();
+      }
+    }
   }
 
   private async predictHands() {
