@@ -1,12 +1,13 @@
 <div fxLayout="column">
-  <h4 fxFlexAlign="end">Toggle Prediction with &lt;SPACE&gt;...</h4>
+  <h4 fxFlexAlign="end"
+      *ngIf="!isMobile">Toggle Prediction with &lt;SPACE&gt;...</h4>
   <div fxLayout="column"
        fxLayoutAlign="start center">
 
     <mat-spinner *ngIf="isLoading"></mat-spinner>
 
     <ng-container *ngIf="!isPredictionActive">
-      <img src="assets/camera.png" />
+      <img src="assets/sign.png" />
       <button mat-raised-button
               color="primary"
               class="block-50"

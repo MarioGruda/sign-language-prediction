@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-signs',
   templateUrl: './signs.component.html',
   styleUrls: ['./signs.component.scss']
 })
-export class SignsComponent implements OnInit {
+export class SignsComponent {
 
   signs: Array<Sign> = [];
 
@@ -19,12 +19,6 @@ export class SignsComponent implements OnInit {
 
       this.signs.push(new Sign(String.fromCharCode(i + 65)));
     }
-
-    console.log(this.signs);
-
-  }
-
-  ngOnInit(): void {
   }
 
 }

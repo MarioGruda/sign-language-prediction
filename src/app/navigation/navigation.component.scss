@@ -4,8 +4,13 @@
   z-index: 1;
 }
 
-.container {
-  padding: 10px;
+.sidenav-container {
+  justify-content: space-between;
+  height: 100%;
+}
+
+.sidenav {
+  width: 200px;
 }
 
 .space {
@@ -14,4 +19,12 @@
 
 .active {
   border-bottom: 1px solid white;
+}
+
+.list-item-active {
+  color: #c2185b!important;
+  background: rgba(0, 0, 0, 0.04)!important;
+  span {
+      font-weight: bold !important;
+  }
 }

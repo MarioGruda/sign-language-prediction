@@ -13,6 +13,7 @@ export class SignPredictionComponent {
   @ViewChild('video') video: ElementRef;
   @ViewChild('overlay') overlay: ElementRef;
   isLoading = false;
+  isMobile = false;
   boundingBox$: Observable<BoundingBox>;
 
   get isPredictionActive() {
@@ -23,10 +24,9 @@ export class SignPredictionComponent {
   private renderingContext: CanvasRenderingContext2D;
   private VIDEO_WIDTH = 640;
   private VIDEO_HEIGHT = 500;
-  private mobile = false;
 
   constructor(private ngZone: NgZone) {
-    this.mobile = this.isMobile();
+    this.isMobile = this.isMobileClient();
     this.boundingBoxSubject = new BehaviorSubject({ topLeft: ['0', '0'], bottomRight: ['0', '0'] });
     this.boundingBox$ = this.boundingBoxSubject
       .asObservable()
@@ -116,8 +116,8 @@ export class SignPredictionComponent {
         facingMode: 'user',
         // Only setting the video to a specified size in order to accommodate a
         // point cloud, so on mobile devices accept the default size.
-        width: this.mobile ? undefined : this.VIDEO_WIDTH,
-        height: this.mobile ? undefined : this.VIDEO_HEIGHT
+        width: this.isMobile ? undefined : this.VIDEO_WIDTH,
+        height: this.isMobile ? undefined : this.VIDEO_HEIGHT
       },
     });
 
@@ -149,7 +149,7 @@ export class SignPredictionComponent {
 
   }
 
-  private isMobile() {
+  private isMobileClient() {
     return /Android/i.test(navigator.userAgent) || /iPhone|iPad|iPod/i.test(navigator.userAgent);
   }
 }
