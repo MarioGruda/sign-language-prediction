@@ -1,0 +1,13 @@
+.container {
+  padding: 10px;
+}
+
+mat-card.active {
+  animation: rotate .5s normal linear;
+  box-shadow: 5px 5px 5px 0px  #c2185b;
+}
+
+@keyframes rotate {
+    from{  transform: rotateY(0deg)   }
+    to  {  transform: rotateY(360deg) }
+}

@@ -1,49 +1,23 @@
 <div fxLayout="column">
   <h4 fxFlexAlign="end"
       *ngIf="!isMobile">Toggle Prediction with &lt;SPACE&gt;...</h4>
-  <div fxLayout="column"
-       fxLayoutAlign="start center">
 
-    <mat-spinner *ngIf="isLoading"></mat-spinner>
+  <div fxLayout="row">
+    <app-signs fxFlex="1 1 auto"
+               fxHide.lt-lg
+               signMaxWidth="50px"
+               [signs]="signsLeft"></app-signs>
 
-    <ng-container *ngIf="!isPredictionActive">
-      <img src="assets/sign.png" />
-      <button mat-raised-button
-              color="primary"
-              class="block-50"
-              [disabled]="isLoading"
-              (click)="startWebcam()">Start Prediction</button>
-    </ng-container>
+    <div fxLayout="column"
+         fxFlex="2 2">
+      <app-webcam [isMobile]="isMobile"
+                  (handDetected)="handDetected($event)"></app-webcam>
+    </div>
 
-    <mat-card [style.visibility]="isPredictionActive && !isLoading ? 'visible' : 'collapse'">
-
-      <mat-card-title>
-        Start "Talking"
-      </mat-card-title>
-
-      <mat-card-content [class.canvas-wrapper]="!isLoading">
-        <video #video
-               playsinline></video>
-        <canvas #overlay></canvas>
-      </mat-card-content>
-
-      <mat-card-footer>
-        <button mat-raised-button
-                color="primary"
-                class="block"
-                [disabled]="isLoading"
-                (click)="stopWebcam()">Stop Prediction</button>
-      </mat-card-footer>
-    </mat-card>
-
-    <ng-container *ngIf="isPredictionActive && (boundingBox$ | async) as boundingBox">
-      <h1>
-        top left x:{{boundingBox?.topLeftX}}, top left y: {{boundingBox?.topLeftY}}
-      </h1>
-      <h1>
-        bottom right x:{{boundingBox?.bottomRightX}}, bottom right y: {{boundingBox?.bottomRightY}}
-      </h1>
-    </ng-container>
+    <app-signs fxFlex="1 1 auto"
+               signMaxWidth="50px"
+               fxHide.lt-lg
+               [signs]="signsRight"></app-signs>
 
   </div>
 </div>

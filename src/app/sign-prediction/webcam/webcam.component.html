@@ -1,0 +1,40 @@
+<div fxLayout="column"
+     fxLayoutAlign="start center">
+  <mat-spinner *ngIf="isLoading"></mat-spinner>
+
+  <ng-container *ngIf="!isPredictionActive">
+    <img src="assets/sign.png"
+         alt="signlanguage icon" />
+    <button mat-raised-button
+            color="primary"
+            class="block-50"
+            [disabled]="isLoading"
+            (click)="startWebcam()">Start Prediction</button>
+  </ng-container>
+
+  <mat-card [style.visibility]="isPredictionActive && !isLoading ? 'visible' : 'collapse'">
+
+    <mat-card-title fxLayout="row">
+      Start "Talking"
+      <span fxFlex></span>
+      <app-countdown *ngIf="isPredictionActive && !isLoading"
+                     (countDown)="countDown?.next()"></app-countdown>
+    </mat-card-title>
+
+    <mat-card-content [class.canvas-wrapper]="!isLoading">
+      <video #video
+             playsinline></video>
+      <canvas #overlay></canvas>
+      <canvas #cropped
+              id="cropped"></canvas>
+    </mat-card-content>
+
+    <mat-card-footer>
+      <button mat-raised-button
+              color="primary"
+              class="block"
+              [disabled]="isLoading"
+              (click)="stopWebcam()">Stop Prediction</button>
+    </mat-card-footer>
+  </mat-card>
+</div>

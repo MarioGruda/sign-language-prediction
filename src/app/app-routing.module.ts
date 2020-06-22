@@ -6,8 +6,7 @@ const routes: Routes = [
     path: '',
     pathMatch: 'full',
     redirectTo: 'sign-prediction'
-  },
-  { path: 'signs', loadChildren: () => import('./signs/signs.module').then(m => m.SignsModule) }
+  }
 ];
 
 @NgModule({

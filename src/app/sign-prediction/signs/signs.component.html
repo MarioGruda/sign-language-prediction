@@ -3,10 +3,11 @@
        fxLayout.xs="column"
        fxLayoutGap="20px grid"
        fxLayoutAlign="space-around center">
-    <div *ngFor="let sign of signs">
-      <mat-card>
+    <div *ngFor="let sign of signs; index as i">
+      <mat-card [class.active]="sign.active"
+                [style.max-width]="signMaxWidth">
         <mat-card-header>
-          <mat-card-title>{{sign.sign}}</mat-card-title>
+          <mat-card-title [innerHtml]="sign.sign"></mat-card-title>
         </mat-card-header>
         <img mat-card-image
              [src]="sign.url"
