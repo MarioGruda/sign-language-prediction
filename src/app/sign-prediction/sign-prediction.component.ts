@@ -21,7 +21,7 @@ export class SignPredictionComponent {
   }
 
   handDetected(image) {
-
+    // console.log(image);
     if (image) {
       this.signsService.predictSign(image)
         .subscribe((result: any) => {
@@ -34,14 +34,11 @@ export class SignPredictionComponent {
             let array = 'signsLeft';
 
             console.log(result.BEST_KEY);
-            console.log(result.BEST_KEY.charCodeAt(0));
             if (result.BEST_KEY === 'nothing' || result.BEST_KEY.charCodeAt(0) - 65 > 12) {
               array = 'signsRight';
-              console.log('signsRight');
             }
 
             const index = (this[array] as Array<Sign>).findIndex(s => s.sign === result.BEST_KEY);
-            console.log(index);
             if (index > -1) {
               (this[array] as Array<Sign>)[index].active = true;
             }

@@ -1,14 +1,14 @@
-import { Component, OnInit, ViewChild, ElementRef, HostListener, NgZone, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, HostListener, NgZone, Input, Output, EventEmitter, AfterViewInit } from '@angular/core';
 import { HandPose } from '@tensorflow-models/handpose';
 import { BehaviorSubject, Subject, zip } from 'rxjs';
-import { map, distinctUntilChanged, tap } from 'rxjs/operators';
+import { map, distinctUntilChanged, tap, filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-webcam',
   templateUrl: './webcam.component.html',
   styleUrls: ['./webcam.component.scss']
 })
-export class WebcamComponent {
+export class WebcamComponent implements AfterViewInit {
 
   @ViewChild('video') video: ElementRef;
   @ViewChild('overlay') overlay: ElementRef;
@@ -26,6 +26,7 @@ export class WebcamComponent {
 
   private boundingBoxSubject: BehaviorSubject<TfBoundingBox>;
   private renderingContext: CanvasRenderingContext2D;
+  private croppedRenderingContext: CanvasRenderingContext2D;
   private VIDEO_WIDTH = 640;
   private VIDEO_HEIGHT = 500;
 
@@ -38,6 +39,7 @@ export class WebcamComponent {
     const newHands = this.boundingBoxSubject
       .asObservable()
       .pipe(
+        filter(box => !!this.renderingContext && !!this.croppedCanvas?.nativeElement),
         map((box) => new BoundingBox(
           Math.round(parseFloat(box.topLeft[0])),
           Math.round(parseFloat(box.topLeft[1])),
@@ -45,7 +47,7 @@ export class WebcamComponent {
           Math.round(parseFloat(box.bottomRight[1]))
         )),
         tap((box) => {
-          if (this.renderingContext && box.bottomRightX - box.topLeftX > 0) {
+          if (box.bottomRightX - box.topLeftX > 0) {
 
             let width = box.bottomRightX - box.topLeftX;
             let height = box.bottomRightY - box.topLeftY;
@@ -77,24 +79,28 @@ export class WebcamComponent {
 
             this.croppedCanvas.nativeElement.width = width;
             this.croppedCanvas.nativeElement.height = height;
-            const tmpContext = this.croppedCanvas.nativeElement.getContext('2d');
 
-            console.log(box);
+
             const imageData = this.renderingContext
               .getImageData(box.topLeftX,
                 box.topLeftY, width, height);
 
-            tmpContext.putImageData(imageData, 0, 0);
+            this.croppedRenderingContext.putImageData(imageData, 0, 0);
           }
-        }),
-        map(box => ({ ...box, image: this.croppedCanvas?.nativeElement?.toDataURL() }))
+        })
       );
 
     zip(newHands, this.countDown)
       .pipe(
         map(([box, _]) => box),
-        tap(b => console.log(b))
+        map(box => ({ image: this.croppedCanvas?.nativeElement?.toDataURL() })),
+        filter(box => !!box.image),
+        // tap(b => console.log(b))
       ).subscribe((box: any) => this.handDetected.next(box.image));
+  }
+
+  ngAfterViewInit(): void {
+    this.croppedRenderingContext = this.croppedCanvas.nativeElement.getContext('2d');
   }
 
   async startWebcam() {
@@ -142,6 +148,11 @@ export class WebcamComponent {
       const boundingBox = hands.length > 0 ?
         { topLeft: hands[0].boundingBox.topLeft, bottomRight: hands[0].boundingBox.bottomRight } :
         { topLeft: ['0', '0'], bottomRight: ['0', '0'] };
+
+
+      this.croppedRenderingContext.clearRect(0, 0,
+        this.croppedCanvas?.nativeElement.width,
+        this.croppedCanvas?.nativeElement.height);
 
       this.ngZone.run(() =>
         this.boundingBoxSubject.next(boundingBox)

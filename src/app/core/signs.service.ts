@@ -31,8 +31,9 @@ export class SignsService {
 
   predictSign(image: string) {
     const base64 = image.split(',')[1];
-    //  console.log(base64);
-    return this.httpClient.post('https://jupiter.fh-swf.de/sign-language/cnn_5_150_150', { image_base_64: base64 });
+    // https://jupiter.fh-swf.de/sign-language/cnn_5_150_150
+    // https://jupiter.fh-swf.de/sign-language/vgg19_224_224
+    return this.httpClient.post('https://jupiter.fh-swf.de/sign-language/vgg19_224_224', { image_base_64: base64 });
   }
 }
 
