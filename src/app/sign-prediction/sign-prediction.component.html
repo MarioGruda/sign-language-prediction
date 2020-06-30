@@ -10,6 +10,16 @@
 
     <div fxLayout="column"
          fxFlex="2 2">
+      <mat-form-field appearance="fill"
+                      fxFlexAlign="center">
+        <mat-label>Model</mat-label>
+        <mat-select (valueChange)="modelChanged($event)">
+          <mat-option *ngFor="let model of (models$ | async) | keyvalue"
+                      [value]="model.value">
+            {{model.key}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
       <app-webcam [isMobile]="isMobile"
                   (handDetected)="handDetected($event)"></app-webcam>
     </div>

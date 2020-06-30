@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { SignsService, Sign } from '../core/signs.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-sign-prediction',
@@ -12,20 +13,28 @@ export class SignPredictionComponent {
   isMobile = false;
   signsLeft: Array<Sign> = [];
   signsRight: Array<Sign> = [];
+  models$: Observable<{}>;
 
-  constructor(private signsService: SignsService) {
+
+  constructor(private signsService: SignsService, private snackBar: MatSnackBar) {
     this.isMobile = this.isMobileClient();
     this.signsLeft = this.signsService.getSigns(0, 13);
     this.signsRight = this.signsService.getSigns(13, 25, true);
+    this.models$ = this.signsService.getModels();
+  }
 
+  modelChanged(modelUrl) {
+    this.signsService.setModelUrl(modelUrl);
+
+    this.snackBar.open(`Changed Model to ${modelUrl}`, '', {
+      duration: 2000,
+    });
   }
 
   handDetected(image) {
-    // console.log(image);
     if (image) {
       this.signsService.predictSign(image)
         .subscribe((result: any) => {
-          // console.log(result);
 
           if (result) {
             this.signsLeft.forEach(s => s.active = false);
@@ -38,7 +47,7 @@ export class SignPredictionComponent {
               array = 'signsRight';
             }
 
-            const index = (this[array] as Array<Sign>).findIndex(s => s.sign === result.BEST_KEY);
+            const index = (this[array] as Array<Sign>).findIndex(s => s.key === result.BEST_KEY);
             if (index > -1) {
               (this[array] as Array<Sign>)[index].active = true;
             }

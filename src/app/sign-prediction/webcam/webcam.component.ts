@@ -95,7 +95,6 @@ export class WebcamComponent implements AfterViewInit {
         map(([box, _]) => box),
         map(box => ({ image: this.croppedCanvas?.nativeElement?.toDataURL() })),
         filter(box => !!box.image),
-        // tap(b => console.log(b))
       ).subscribe((box: any) => this.handDetected.next(box.image));
   }
 
