@@ -16,19 +16,14 @@ export class SignsService {
     this.modelUrl = modelUrl;
   }
 
-  getSigns(from = 0, to = 25, indcludeNothing = false) {
+  getSigns(from = 0, to = 26, indcludeNothing = false) {
 
-    if (from < 0 || to > 25) {
-      throw new Error('Parameters out of range 0 - 25');
+    if (from < 0 || to > 26) {
+      throw new Error('Parameters out of range 0 - 26');
     }
 
     const signs: Array<Sign> = [];
     for (let i = from; i < to; i++) {
-
-      if (i === 9) {
-        continue;
-      }
-
       signs.push(new Sign(String.fromCharCode(i + 65)));
     }
 

@@ -11,6 +11,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class SignPredictionComponent {
 
   isMobile = false;
+  defaultModel = '/vgg19_224_224_v2';
   signsLeft: Array<Sign> = [];
   signsRight: Array<Sign> = [];
   models$: Observable<{}>;
@@ -19,7 +20,7 @@ export class SignPredictionComponent {
   constructor(private signsService: SignsService, private snackBar: MatSnackBar) {
     this.isMobile = this.isMobileClient();
     this.signsLeft = this.signsService.getSigns(0, 13);
-    this.signsRight = this.signsService.getSigns(13, 25, true);
+    this.signsRight = this.signsService.getSigns(13, 26, true);
     this.models$ = this.signsService.getModels();
   }
 

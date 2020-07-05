@@ -62,21 +62,6 @@ export class WebcamComponent implements AfterViewInit {
               width = height;
             }
 
-            // if (box.topLeftX + width > this.VIDEO_WIDTH) {
-            //   const toWide = box.topLeftX + width - this.VIDEO_WIDTH;
-            //   box.topLeftX -= toWide;
-            // }
-
-            // if (box.topLeftX < 0) {
-            //   const toWide = box.topLeftX + width - this.VIDEO_WIDTH;
-            //   width += toWide;
-            // }
-
-            // if (box.topLeftX + width > this.VIDEO_WIDTH) {
-            //   const toWide = box.topLeftX + width - this.VIDEO_WIDTH;
-            //   box.topLeftX -= toWide;
-            // }
-
             this.croppedCanvas.nativeElement.width = width;
             this.croppedCanvas.nativeElement.height = height;
 
@@ -202,9 +187,6 @@ export class WebcamComponent implements AfterViewInit {
     this.renderingContext.clearRect(0, 0, videoWidth, videoHeight);
     this.renderingContext.strokeStyle = 'red';
     this.renderingContext.fillStyle = 'red';
-
-    // this.renderingContext.translate(canvas.width, 0);
-    // this.renderingContext.scale(-1, 1);
   }
 }
 

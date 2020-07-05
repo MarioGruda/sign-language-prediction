@@ -13,7 +13,9 @@
       <mat-form-field appearance="fill"
                       fxFlexAlign="center">
         <mat-label>Model</mat-label>
-        <mat-select (valueChange)="modelChanged($event)">
+        <mat-select (valueChange)="modelChanged($event)"
+                    [value]="defaultModel"
+                    required>
           <mat-option *ngFor="let model of (models$ | async) | keyvalue"
                       [value]="model.value">
             {{model.key}}

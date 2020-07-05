@@ -17,7 +17,7 @@ export class CountdownComponent {
   constructor() {
 
     this.countDown = new EventEmitter();
-    this.coundDown$ = interval(100)
+    this.coundDown$ = interval(150)
       .pipe(
         map(() => {
 
