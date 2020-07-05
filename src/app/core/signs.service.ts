@@ -28,7 +28,7 @@ export class SignsService {
     }
 
     if (indcludeNothing) {
-      signs.push(new Sign('nothing', '/assets/signs/nothing.png'));
+      signs.push(new Sign('nothing', './assets/signs/nothing.png'));
     }
 
     return signs;
@@ -53,7 +53,7 @@ export class Sign {
     this.sign = this.sign === 'nothing' ? '&empty;' : this.sign;
 
     if (!this.url) {
-      this.url = `/assets/signs/${sign}.png`;
+      this.url = `./assets/signs/${sign}.png`;
     }
 
   }
