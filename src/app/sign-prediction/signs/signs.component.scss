@@ -2,12 +2,38 @@
   padding: 10px;
 }
 
-mat-card.active {
-  animation: rotate .5s normal linear;
-  box-shadow: 5px 5px 5px 0px  #c2185b;
+.original-sign {
+  opacity: 0;
+  position: absolute;
+  left: 0;
+}
+
+mat-card {
+  position: relative;
+
+  &.active {
+    animation: rotate 0.5s normal linear;
+    box-shadow: 5px 5px 5px 0px #c2185b;
+  }
+
+  &:hover {
+    > img.sign {
+      display: none;
+    }
+
+    > img.original-sign {
+      opacity: 1;
+      position: initial;
+      transition: opacity 0.3s ease-in;
+    }
+  }
 }
 
 @keyframes rotate {
-    from{  transform: rotateY(0deg)   }
-    to  {  transform: rotateY(360deg) }
+  from {
+    transform: rotateY(0deg);
+  }
+  to {
+    transform: rotateY(360deg);
+  }
 }

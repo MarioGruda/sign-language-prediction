@@ -8,6 +8,8 @@ import { Sign, SignsService } from 'src/app/core/signs.service';
 })
 export class SignsComponent implements OnInit {
 
+  overviewMode = false;
+
   @Input() signMaxWidth: string;
   @Input() signs: Array<Sign> = [];
 
@@ -19,6 +21,7 @@ export class SignsComponent implements OnInit {
 
     if (!this.signMaxWidth) {
       this.signMaxWidth = '250px';
+      this.overviewMode = true;
     }
 
     if (!this.signs || this.signs.length === 0) {

@@ -12,7 +12,17 @@
         <img mat-card-image
              [src]="sign.url"
              [alt]="sign.sign"
-             loading="auto">
+             loading="auto"
+             [class.sign]="overviewMode">
+
+        <img mat-card-image
+             [src]="sign.originalSignUrl"
+             [alt]="sign.sign"
+             loading="auto"
+             class="original-sign"
+             *ngIf="overviewMode">
+
+        <div id="dummy"></div>
       </mat-card>
     </div>
   </div>
