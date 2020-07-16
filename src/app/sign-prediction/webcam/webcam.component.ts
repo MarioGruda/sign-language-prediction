@@ -1,7 +1,10 @@
-import { Component, OnInit, ViewChild, ElementRef, HostListener, NgZone, Input, Output, EventEmitter, AfterViewInit } from '@angular/core';
+import {
+  Component, ViewChild, ElementRef, HostListener, NgZone,
+  Input, Output, EventEmitter, AfterViewInit
+} from '@angular/core';
 import { HandPose } from '@tensorflow-models/handpose';
 import { BehaviorSubject, Subject, zip } from 'rxjs';
-import { map, distinctUntilChanged, tap, filter } from 'rxjs/operators';
+import { map, tap, filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-webcam',
@@ -91,7 +94,7 @@ export class WebcamComponent implements AfterViewInit {
     this.isLoading = true;
     await this.setupCamera();
     this.video.nativeElement.play();
-    await this.ngZone.runOutsideAngular(() => this.predictHands());
+    await this.ngZone.runOutsideAngular(() => this.estimateHands());
     this.isLoading = false;
   }
 
@@ -115,7 +118,10 @@ export class WebcamComponent implements AfterViewInit {
     }
   }
 
-  private async predictHands() {
+  /**
+   *
+   */
+  private async estimateHands() {
 
     const videoWidth = this.video.nativeElement.videoWidth;
     const videoHeight = this.video.nativeElement.videoHeight;
@@ -141,10 +147,8 @@ export class WebcamComponent implements AfterViewInit {
       this.ngZone.run(() =>
         this.boundingBoxSubject.next(boundingBox)
       );
-    }
 
-    if (this.isPredictionActive) {
-      requestAnimationFrame(this.predictHands.bind(this));
+      requestAnimationFrame(this.estimateHands.bind(this));
     }
   }
 
@@ -158,8 +162,6 @@ export class WebcamComponent implements AfterViewInit {
       audio: false,
       video: {
         facingMode: 'user',
-        // Only setting the video to a specified size in order to accommodate a
-        // point cloud, so on mobile devices accept the default size.
         width: this.isMobile ? undefined : this.VIDEO_WIDTH,
         height: this.isMobile ? undefined : this.VIDEO_HEIGHT
       },
