@@ -147,7 +147,9 @@ export class WebcamComponent implements AfterViewInit {
       this.ngZone.run(() =>
         this.boundingBoxSubject.next(boundingBox)
       );
+    }
 
+    if (this.isPredictionActive) {
       requestAnimationFrame(this.estimateHands.bind(this));
     }
   }
