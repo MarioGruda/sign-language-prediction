@@ -43,7 +43,7 @@ export class SignsService {
 
 export class Sign {
 
-  originalSignUrl = 'https://via.placeholder.com/322x383';
+  originalSignUrl: string;
   active = false;
   key: string;
   toggled: boolean;
@@ -56,6 +56,7 @@ export class Sign {
 
     if (!this.url) {
       this.url = `./assets/signs/${sign}.png`;
+      this.originalSignUrl = `./assets/signs/${sign}_ORI.png`;
     }
 
   }

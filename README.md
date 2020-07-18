@@ -1,29 +1,20 @@
-# SignLanguageClient
+# SignLanguageFrontend
 
-[Firebase](https://sign-language-prediction-d4411.web.app/)
+Dieses webbasierte Frontend dient als grafische Oberfläche für das SignLanguageBackend.
+Das Frontend erlaubt es über die Webcam Handzeichen des Fingeralphabets über das Backend zu klassifizieren.
+Dazu werden die Bilder in einem Intervall an das Backend gesendet und das Ergebnis dem Benutzer angezeigt.
+Die möglichen Handzeichen sind dargestellt und mit einem Klick auf das Handzeichen auf der Übersichtsseite können die Originale angesehen werden. 
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.4.
+## Installation
 
-## Development server
+Das Frontend wurde unter Debian 10, Linux Mint 19 und Windows 10 getestet sowie entwickelt.
+Um möglichen Inkompatibilitäten aus dem Weg zu gehen, werden diese als Betriebssystem
+empohlen.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+1. Installation von Node.js um den Paketmanager npm zu erhalten
+2. Installation von essentiellen Paketen mit: npm install
+3. Ändern der Backend URL falls gewüscntht in der signs.service.ts Datei
+4. Erstellen des Projekts mit ng build --prod
+5. Den Inhalt des dist Ordners in ein Webserver-Verzeichnis schieben (Apache/NGINX/IIS um die gängigsten zu nennen)
 
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+Ohne Änderung der URL schickt das Frontend die Anfragen automatisch an das gehostete Backend unter https://jupiter.fh-swf.de/sign-language/
