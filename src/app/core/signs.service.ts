@@ -46,6 +46,7 @@ export class Sign {
   originalSignUrl = 'https://via.placeholder.com/322x383';
   active = false;
   key: string;
+  toggled: boolean;
 
   constructor(public sign: string, public url: string = '') {
 
