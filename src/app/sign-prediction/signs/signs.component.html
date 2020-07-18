@@ -5,7 +5,9 @@
        fxLayoutAlign="space-around center">
     <div *ngFor="let sign of signs; index as i">
       <mat-card [class.active]="sign.active"
-                [style.max-width]="signMaxWidth">
+                [class.toggle]="sign.toggled"
+                [style.max-width]="signMaxWidth"
+                (click)="sign.toggled = !sign.toggled">
         <mat-card-header>
           <mat-card-title [innerHtml]="sign.sign"></mat-card-title>
         </mat-card-header>

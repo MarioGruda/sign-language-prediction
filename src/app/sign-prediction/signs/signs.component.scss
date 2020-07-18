@@ -16,7 +16,7 @@ mat-card {
     box-shadow: 5px 5px 5px 0px #c2185b;
   }
 
-  &:hover {
+  &.toggle {
     > img.sign {
       display: none;
     }
