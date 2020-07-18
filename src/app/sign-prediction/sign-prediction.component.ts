@@ -11,7 +11,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class SignPredictionComponent {
 
   isMobile = false;
-  defaultModel = '/vgg19_224_224_v2';
+  defaultModel = '/224x224_vgg19_v2';
   signsLeft: Array<Sign> = [];
   signsRight: Array<Sign> = [];
   models$: Observable<{}>;
